@@ -142,6 +142,11 @@
                             <input type="text" id="patientName" class="form-control" required placeholder="John Doe">
                         </div>
                         <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="patientEmail" class="form-control" required
+                                placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
                             <label>Phone Number</label>
                             <input type="tel" id="patientPhone" class="form-control" required
                                 placeholder="+91 98765 43210">
@@ -232,6 +237,7 @@
                 const bookingData = {
                     doctorId,
                     patientName: document.getElementById('patientName').value,
+                    patientEmail: document.getElementById('patientEmail').value,
                     patientPhone: document.getElementById('patientPhone').value,
                     date: document.getElementById('appointmentDate').value,
                     time: document.getElementById('appointmentTime').value

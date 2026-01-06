@@ -103,11 +103,12 @@ app.get('/api/doctors/:id', async (req, res) => {
 // 3. Create Appointment
 app.post('/api/appointments', async (req, res) => {
     try {
-        const { doctorId, patientName, patientPhone, date, time } = req.body;
+        const { doctorId, patientName, patientEmail, patientPhone, date, time } = req.body;
 
         const newAppointment = new Appointment({
             doctorId,
             patientName,
+            patientEmail,
             patientPhone,
             date,
             time
@@ -121,18 +122,19 @@ app.post('/api/appointments', async (req, res) => {
         // Send Email
         const mailOptions = {
             from: 'krsachin9097@gmail.com',
-            to: 'krsachin9097@gmail.com', // Sending to admin/doctor for now
-            subject: 'New Appointment Booking - DocSearch',
+            to: patientEmail,
+            cc: 'krsachin9097@gmail.com',
+            subject: 'Appointment Confirmation - DocSearch',
             text: `
-                New Appointment Booked!
+                Hello ${patientName},
+
+                Your appointment has been successfully booked!
                 
                 Doctor: ${doctor ? doctor.name : 'Unknown Doctor'}
-                Patient: ${patientName}
-                Phone: ${patientPhone}
                 Date: ${date}
                 Time: ${time}
                 
-                Please login to dashboard to view details.
+                Thank you for using DocSearch.
             `
         };
 
