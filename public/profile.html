@@ -183,6 +183,38 @@
             const params = new URLSearchParams(window.location.search);
             const doctorId = params.get('id');
 
+            // --- Auth Logic ---
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user'));
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (user) {
+                // Update Nav
+                navMenu.innerHTML = `
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="my-bookings.html" class="nav-link">My Bookings</a>
+                    <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.reload();
+                });
+
+                // Auto-fill form
+                if (document.getElementById('patientName')) {
+                    document.getElementById('patientName').value = user.name;
+                    document.getElementById('patientEmail').value = user.email;
+                    // Optional: Make them read-only if you want enforce user details
+                }
+            } else {
+                navMenu.innerHTML = `
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="login.html" class="nav-link">Login</a>
+                `;
+            }
+            // ------------------
+
             if (!doctorId) {
                 window.location.href = 'index.html';
                 return;
@@ -243,10 +275,15 @@
                     time: document.getElementById('appointmentTime').value
                 };
 
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) {
+                    headers['Authorization'] = token;
+                }
+
                 try {
                     const res = await fetch('/api/appointments', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: headers,
                         body: JSON.stringify(bookingData)
                     });
 

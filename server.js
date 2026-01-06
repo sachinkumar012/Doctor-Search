@@ -3,13 +3,17 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Models
 const Doctor = require('./models/Doctor');
 const Appointment = require('./models/Appointment');
+const User = require('./models/User');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const JWT_SECRET = 'your_jwt_secret_key_change_this_in_production'; // Simple secret for now
 
 // MongoDB Connection
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://krsachin9097:Yadav909707@cluster0.hqm4zhe.mongodb.net/?appName=Cluster0';
@@ -31,6 +35,21 @@ const transporter = nodemailer.createTransport({
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware to verify token
+const verifyToken = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) return next(); // Continue without user info if no token
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        // Invalid token, just continue as guest
+        next();
+    }
+};
 
 // API Endpoints
 
@@ -101,12 +120,13 @@ app.get('/api/doctors/:id', async (req, res) => {
 });
 
 // 3. Create Appointment
-app.post('/api/appointments', async (req, res) => {
+app.post('/api/appointments', verifyToken, async (req, res) => {
     try {
         const { doctorId, patientName, patientEmail, patientPhone, date, time } = req.body;
 
         const newAppointment = new Appointment({
             doctorId,
+            userId: req.user ? req.user.id : null, // Link user if logged in
             patientName,
             patientEmail,
             patientPhone,
@@ -181,6 +201,89 @@ app.post('/api/contact', async (req, res) => {
             }
         });
 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
+// Auth Routes
+// 5. Register User
+app.post('/api/auth/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Check if user exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create User
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        await newUser.save();
+
+        res.status(201).json({ message: "User registered successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
+// 6. Login User
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check user
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        // Generate Token
+        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server Error" });
+    }
+});
+
+
+
+// 7. Get My Bookings (Protected)
+app.get('/api/my-appointments', verifyToken, async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const appointments = await Appointment.find({ userId: req.user.id }).populate('doctorId');
+        res.json(appointments);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Server Error" });

@@ -136,6 +136,26 @@
 
     <!-- Scripts -->
     <script src="script.js"></script>
+    <script>
+        // Check Auth for Nav
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (user) {
+            navMenu.innerHTML = `
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="doctors.html" class="nav-link active">Find Doctors</a>
+                <a href="my-bookings.html" class="nav-link">My Bookings</a>
+                <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+            `;
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.reload();
+            });
+        }
+    </script>
 </body>
 
 </html>

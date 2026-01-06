@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
     doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Optional for now (guest bookings) or required if we enforce login
     patientName: { type: String, required: true },
     patientEmail: { type: String, required: true },
     patientPhone: { type: String, required: true },

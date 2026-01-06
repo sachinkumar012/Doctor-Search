@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - DocSearch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .bookings-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+        }
+
+        .booking-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .doctor-info h3 {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .doctor-info p {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .booking-time {
+            text-align: right;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-confirmed {
+            background-color: #DCFCE7;
+            color: #166534;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-gray);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-user-doctor"></i> DocSearch
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <!-- Links injected via JS -->
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="bookings-container">
+            <h2 style="margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">My
+                Appointments</h2>
+            <div id="bookingsList">
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check Auth
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+
+        async function fetchBookings() {
+            try {
+                const res = await fetch('/api/my-appointments', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
+
+                if (res.status === 401) {
+                    // Token expired or invalid
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const bookings = await res.json();
+                renderBookings(bookings);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('bookingsList').innerHTML = '<p class="empty-state">Error loading bookings.</p>';
+            }
+        }
+
+        function renderBookings(bookings) {
+            const container = document.getElementById('bookingsList');
+
+            if (bookings.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-regular fa-calendar-xmark" style="font-size: 48px; margin-bottom: 16px;"></i>
+                        <p>No appointments found.</p>
+                        <a href="index.html" class="btn btn-primary" style="margin-top: 16px;">Find a Doctor</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = bookings.map(booking => `
+                <div class="booking-card">
+                    <div class="doctor-info">
+                        <h3>Dr. ${booking.doctorId ? booking.doctorId.name : 'Unknown Doctor'}</h3>
+                        <p><i class="fa-solid fa-user-md"></i> ${booking.doctorId ? booking.doctorId.specialization : 'N/A'}</p>
+                        <p><i class="fa-solid fa-location-dot"></i> ${booking.doctorId ? booking.doctorId.hospital : 'N/A'}</p>
+                    </div>
+                    <div class="booking-time">
+                        <div style="font-weight: 600; margin-bottom: 8px;">
+                            ${booking.date}
+                        </div>
+                        <div style="color: var(--primary-blue); margin-bottom: 8px;">
+                            ${booking.time}
+                        </div>
+                        <span class="status-badge status-confirmed">Confirmed</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Setup Nav (Duplicate logic for now, will modularize later or just copy paste to other files)
+        const navMenu = document.getElementById('navMenu');
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (user) {
+            navMenu.innerHTML = `
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="my-bookings.html" class="nav-link active">My Bookings</a>
+                <a href="#" class="nav-link" id="logoutBtn">Logout (${user.name})</a>
+            `;
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            });
+        } else {
+            navMenu.innerHTML = `
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            `;
+        }
+
+        fetchBookings();
+    </script>
+</body>
+
+</html>

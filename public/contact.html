@@ -161,6 +161,26 @@
                 btn.disabled = false;
             }
         });
+
+        // Check Auth for Nav
+        const user = JSON.parse(localStorage.getItem('user'));
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (user) {
+            navMenu.innerHTML = `
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="doctors.html" class="nav-link">Find Doctors</a>
+                <a href="specialties.html" class="nav-link">Specialties</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <a href="my-bookings.html" class="nav-link">My Bookings</a>
+                <a href="#" class="nav-link" id="logoutBtn">Logout</a>
+            `;
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.reload();
+            });
+        }
     </script>
 
     <!-- Footer -->
