@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Search - Find Trusted Doctors</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-user-doctor"></i> DocSearch
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="doctors.html" class="nav-link">Find Doctors</a>
+                <a href="specialties.html" class="nav-link">Specialties</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <a href="doctors.html" class="btn btn-primary">Book Appointment</a>
+            <div class="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container-flex">
+            <!-- Left: Text Content -->
+            <div class="hero-text">
+                <h1 class="hero-title">Find a doctor <br>for you now!</h1>
+                <p class="hero-subtitle">We take the guesswork out of locating a doctor, hospital, or other medical
+                    facility in your area for you and your family.</p>
+
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-white">Get Started</a>
+                    <a href="#" class="btn btn-outline-white">Learn More About Us</a>
+                </div>
+            </div>
+
+            <!-- Right: Image & Stats -->
+            <div class="hero-image-wrapper">
+                <img src="hero-doctor.png" alt="Doctor" class="hero-doctor-img">
+
+                <!-- Floating Stats -->
+                <div class="stat-card stat-1">
+                    <h3>15+</h3>
+                    <p>Years of Experience</p>
+                </div>
+                <div class="stat-card stat-2">
+                    <h3>20K</h3>
+                    <p>Doctor Specialist</p>
+                </div>
+                <div class="stat-card stat-3">
+                    <h3>100%</h3>
+                    <p>Patient Satisfaction</p>
+                </div>
+
+                <!-- Decorative Arrow (using FontAwesome for simplicity) -->
+                <div class="hero-arrow">
+                    <i class="fa-solid fa-arrow-turn-up fa-rotate-90"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar (Overlapping) -->
+        <div class="container search-container-overlap">
+            <div class="search-card">
+                <h3 style="margin-bottom: 20px; text-align: left;">Search Doctor</h3>
+                <form id="searchForm" class="search-form">
+                    <div class="input-group">
+                        <input type="date" id="searchDate" placeholder="Date">
+                        <i class="fa-regular fa-calendar" style="color: #2dbe9f;"></i>
+                    </div>
+                    <div class="input-group">
+                        <select id="locationInput">
+                            <option value="">Location</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Pune">Pune</option>
+                        </select>
+                        <i class="fa-solid fa-location-dot" style="color: #2dbe9f;"></i>
+                    </div>
+                    <div class="input-group">
+                        <select id="specializationInput">
+                            <option value="">Specialist</option>
+                            <option value="Cardiologist">Cardiologist</option>
+                            <option value="Dentist">Dentist</option>
+                            <option value="Neurologist">Neurologist</option>
+                            <option value="Pediatrician">Pediatrician</option>
+                            <option value="Dermatologist">Dermatologist</option>
+                            <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down" style="color: #2dbe9f;"></i>
+                    </div>
+                    <button type="submit" class="btn btn-success search-btn">Search</button>
+                    <!-- Hidden input for query compatibility -->
+                    <input type="hidden" id="searchInput">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-section">
+        <div class="container main-layout">
+
+            <!-- Filters Sidebar -->
+            <aside class="filters-sidebar">
+                <div class="filter-header">
+                    <h3>Filter Results</h3>
+                    <button id="resetFilters" class="btn-text">Reset</button>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Availability</h4>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="availableCheck">
+                        <span class="checkmark"></span>
+                        Available Today
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                        Online Consultation
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Experience</h4>
+                    <select id="experienceFilter" class="filter-select">
+                        <option value="all">Any Experience</option>
+                        <option value="5">5+ Years</option>
+                        <option value="10">10+ Years</option>
+                        <option value="15">15+ Years</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Consultation Fee</h4>
+                    <select id="feeFilter" class="filter-select">
+                        <option value="all">Any Price</option>
+                        <option value="100">Under ₹1000</option>
+                        <option value="200">₹1000 - ₹2000</option>
+                        <option value="201">Above ₹2000</option>
+                    </select>
+                </div>
+            </aside>
+
+            <!-- Doctor Grid -->
+            <main class="doctor-list">
+                <div class="list-header">
+                    <h2 id="resultsCount">Loading doctors...</h2>
+                    <div class="sort-wrapper">
+                        <span>Sort by:</span>
+                        <select id="sortBy">
+                            <option value="recommended">Recommended</option>
+                            <option value="rating">Rating</option>
+                            <option value="fee-low">Price: Low to High</option>
+                            <option value="fee-high">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="doctorGrid" class="doctor-grid">
+                    <!-- Doctor Cards will be injected here by JS -->
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo footer-logo">
+                    <i class="fa-solid fa-user-doctor"></i> DocSearch
+                </a>
+                <p>Find the right doctor for you. Simple, fast, and free.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2024 DocSearch. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>

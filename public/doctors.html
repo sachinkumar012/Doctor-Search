@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctors - DocSearch</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-user-doctor"></i> DocSearch
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="doctors.html" class="nav-link active">Find Doctors</a>
+                <a href="specialties.html" class="nav-link">Specialties</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <a href="doctors.html" class="btn btn-primary">Book Appointment</a>
+            <div class="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section style="background-color: var(--secondary-blue); padding: 80px 0 40px;">
+        <div class="container">
+            <h1 style="font-size: 36px; margin-bottom: 16px;">Find Your Doctor</h1>
+            <p style="color: var(--text-gray); max-width: 600px;">Browse our extensive list of trusted doctors and
+                specialists near you.</p>
+        </div>
+    </section>
+
+    <!-- Main Content (Reused Grid) -->
+    <section class="main-section">
+        <div class="container main-layout">
+
+            <!-- Filters Sidebar -->
+            <aside class="filters-sidebar">
+                <div class="filter-header">
+                    <h3>Filter Results</h3>
+                    <button id="resetFilters" class="btn-text">Reset</button>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Availability</h4>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="availableCheck">
+                        <span class="checkmark"></span>
+                        Available Today
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Experience</h4>
+                    <select id="experienceFilter" class="filter-select">
+                        <option value="all">Any Experience</option>
+                        <option value="5">5+ Years</option>
+                        <option value="10">10+ Years</option>
+                        <option value="15">15+ Years</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Consultation Fee</h4>
+                    <select id="feeFilter" class="filter-select">
+                        <option value="all">Any Price</option>
+                        <option value="100">Under ₹1000</option>
+                        <option value="200">₹1000 - ₹2000</option>
+                        <option value="201">Above ₹2000</option>
+                    </select>
+                </div>
+
+                <!-- Hidden inputs for script compatibility if needed, or simply let the script generic selectors work -->
+                <!-- These are needed because script.js looks for them for the initial fetch logic -->
+                <input type="hidden" id="searchInput">
+                <input type="hidden" id="locationInput">
+                <input type="hidden" id="specializationInput">
+                <form id="searchForm" style="display:none;"></form>
+            </aside>
+
+            <!-- Doctor Grid -->
+            <main class="doctor-list">
+                <div class="list-header">
+                    <h2 id="resultsCount">Loading doctors...</h2>
+                </div>
+
+                <div id="doctorGrid" class="doctor-grid">
+                    <!-- Doctor Cards will be injected here by JS -->
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo footer-logo">
+                    <i class="fa-solid fa-user-doctor"></i> DocSearch
+                </a>
+                <p>Find the right doctor for you. Simple, fast, and free.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2024 DocSearch. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>

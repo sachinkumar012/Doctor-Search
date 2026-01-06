@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specialties - DocSearch</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-user-doctor"></i> DocSearch
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="doctors.html" class="nav-link">Find Doctors</a>
+                <a href="specialties.html" class="nav-link active">Specialties</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <a href="doctors.html" class="btn btn-primary">Book Appointment</a>
+            <div class="mobile-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section style="background-color: var(--secondary-blue); padding: 80px 0;">
+        <div class="container" style="text-align: center;">
+            <h1 style="font-size: 36px; margin-bottom: 16px;">Our Specialties</h1>
+            <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto;">We cover a wide range of medical
+                specialties to ensure you get the best care possible.</p>
+        </div>
+    </section>
+
+    <!-- Specialties Grid -->
+    <section class="main-section">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 32px;">
+
+                <div class="doctor-card" style="padding: 32px; text-align: center;">
+                    <i class="fa-solid fa-heart-pulse"
+                        style="font-size: 40px; color: var(--primary-blue); margin-bottom: 24px;"></i>
+                    <h3 style="margin-bottom: 12px;">Cardiology</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 24px;">Expert care for heart and
+                        cardiovascular conditions.</p>
+                    <a href="doctors.html?specialty=Cardiologist" class="btn-text">Find Doctors &rarr;</a>
+                </div>
+
+                <div class="doctor-card" style="padding: 32px; text-align: center;">
+                    <i class="fa-solid fa-brain"
+                        style="font-size: 40px; color: var(--primary-blue); margin-bottom: 24px;"></i>
+                    <h3 style="margin-bottom: 12px;">Neurology</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 24px;">Diagnosis and treatment of
+                        nervous system disorders.</p>
+                    <a href="doctors.html?specialty=Neurologist" class="btn-text">Find Doctors &rarr;</a>
+                </div>
+
+                <div class="doctor-card" style="padding: 32px; text-align: center;">
+                    <i class="fa-solid fa-tooth"
+                        style="font-size: 40px; color: var(--primary-blue); margin-bottom: 24px;"></i>
+                    <h3 style="margin-bottom: 12px;">Dentistry</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 24px;">Comprehensive dental care
+                        and oral health services.</p>
+                    <a href="doctors.html?specialty=Dentist" class="btn-text">Find Doctors &rarr;</a>
+                </div>
+
+                <div class="doctor-card" style="padding: 32px; text-align: center;">
+                    <i class="fa-solid fa-baby"
+                        style="font-size: 40px; color: var(--primary-blue); margin-bottom: 24px;"></i>
+                    <h3 style="margin-bottom: 12px;">Pediatrics</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 24px;">Medical care for infants,
+                        children, and adolescents.</p>
+                    <a href="doctors.html?specialty=Pediatrician" class="btn-text">Find Doctors &rarr;</a>
+                </div>
+
+                <div class="doctor-card" style="padding: 32px; text-align: center;">
+                    <i class="fa-solid fa-bone"
+                        style="font-size: 40px; color: var(--primary-blue); margin-bottom: 24px;"></i>
+                    <h3 style="margin-bottom: 12px;">Orthopedics</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 24px;">Treatment for
+                        musculoskeletal system issues.</p>
+                    <a href="doctors.html?specialty=Orthopedic+Surgeon" class="btn-text">Find Doctors &rarr;</a>
+                </div>
+
+                <div class="doctor-card" style="padding: 32px; text-align: center;">
+                    <i class="fa-solid fa-notes-medical"
+                        style="font-size: 40px; color: var(--primary-blue); margin-bottom: 24px;"></i>
+                    <h3 style="margin-bottom: 12px;">Dermatology</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 24px;">Treatment for skin
+                        conditions.</p>
+                    <a href="doctors.html?specialty=Dermatologist" class="btn-text">Find Doctors &rarr;</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo footer-logo">
+                    <i class="fa-solid fa-user-doctor"></i> DocSearch
+                </a>
+                <p>Find the right doctor for you. Simple, fast, and free.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2024 DocSearch. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

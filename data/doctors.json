@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Sarah Johnson",
+    "specialization": "Cardiologist",
+    "experience": "12 Years",
+    "location": "New York, NY",
+    "hospital": "City Heart Center",
+    "fee": "$150",
+    "rating": 4.9,
+    "image": "https://randomuser.me/api/portraits/women/44.jpg",
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "Dr. James Smith",
+    "specialization": "Dentist",
+    "experience": "8 Years",
+    "location": "Los Angeles, CA",
+    "hospital": "Smile Care Clinic",
+    "fee": "$80",
+    "rating": 4.7,
+    "image": "https://randomuser.me/api/portraits/men/32.jpg",
+    "available": true
+  },
+  {
+    "id": 3,
+    "name": "Dr. Emily Davis",
+    "specialization": "Neurologist",
+    "experience": "15 Years",
+    "location": "Chicago, IL",
+    "hospital": "Brain Health Institute",
+    "fee": "$200",
+    "rating": 5.0,
+    "image": "https://randomuser.me/api/portraits/women/68.jpg",
+    "available": false
+  },
+  {
+    "id": 4,
+    "name": "Dr. Michael Brown",
+    "specialization": "Pediatrician",
+    "experience": "10 Years",
+    "location": "Houston, TX",
+    "hospital": "Kids Care Hospital",
+    "fee": "$100",
+    "rating": 4.8,
+    "image": "https://randomuser.me/api/portraits/men/85.jpg",
+    "available": true
+  },
+  {
+    "id": 5,
+    "name": "Dr. Linda Wilson",
+    "specialization": "Dermatologist",
+    "experience": "6 Years",
+    "location": "Miami, FL",
+    "hospital": "Skin Glow Clinic",
+    "fee": "$120",
+    "rating": 4.6,
+    "image": "https://randomuser.me/api/portraits/women/22.jpg",
+    "available": true
+  },
+  {
+    "id": 6,
+    "name": "Dr. Robert Taylor",
+    "specialization": "Orthopedic Surgeon",
+    "experience": "20 Years",
+    "location": "San Francisco, CA",
+    "hospital": "Bone & Joint Center",
+    "fee": "$250",
+    "rating": 4.9,
+    "image": "https://randomuser.me/api/portraits/men/11.jpg",
+    "available": true
+  }
+]
